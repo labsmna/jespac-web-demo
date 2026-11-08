@@ -16,7 +16,8 @@ html{font-size:112.5%;overflow-x:clip;scroll-behavior:smooth;-webkit-text-size-a
 body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--display);font-size:1rem;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:clip;min-width:320px}
 img,svg{max-width:100%}
 a{color:var(--red-ink);text-underline-offset:.2em}
-:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:.5rem}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.iconbtn:focus-visible{outline-offset:2px;border-radius:50%}
 h1,h2,h3,h4{font-family:var(--display);margin:0 0 .5em;text-wrap:balance;font-weight:700;overflow-wrap:break-word}
 h1{font-size:clamp(2.3rem,5.6vw,4.4rem);letter-spacing:-.03em;line-height:1.02}
 h2{font-size:clamp(1.8rem,3.6vw,2.8rem);letter-spacing:-.022em;line-height:1.08}

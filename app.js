@@ -135,7 +135,7 @@ const ov={cart:false,nav:false};
 function syncOverlay(){$('#scrim').classList.toggle('on',ov.cart||ov.nav);document.documentElement.classList.toggle('lock',ov.cart||ov.nav||!!document.querySelector('.modal.on'));refreshBar()}
 function refreshBar(){if(ov.cart||ov.nav)hideBar()}
 function openCart(on=true){ov.cart=on;$('#drawer').classList.toggle('on',on);$('#drawer').setAttribute('aria-hidden',!on);syncOverlay();if(on)$('#drawer .iconbtn')?.focus({preventScroll:true})}
-function setNav(on){ov.nav=on;$('#mnav').classList.toggle('on',on);$('#mnav').setAttribute('aria-hidden',!on);$('#burger')?.setAttribute('aria-expanded',on);syncOverlay();if(on)$('#mnav .iconbtn')?.focus({preventScroll:true})}
+function setNav(on){ov.nav=on;$('#mnav').classList.toggle('on',on);$('#mnav').setAttribute('aria-hidden',!on);$('#burger')?.setAttribute('aria-expanded',on);syncOverlay();if(on)$('#mnav .iconbtn')?.focus({preventScroll:true,focusVisible:false})}
 
 /* ---------- LOGO ---------- */
 /* official logo, taken from the current jespac.com */
