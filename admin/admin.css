@@ -187,7 +187,7 @@ main>.ph{animation:fade .35s ease both}
 }
 @media (prefers-contrast:more){.card,.chip,.input,.sel{border-color:#6b6757}}
 /* taules de comandes: si la targeta és estreta, s'amaga la columna "Botiga" perquè hi càpiga l'estat */
-.card:has(>.tw .ord){container-type:inline-size}
+.card:has(.tw .ord){container-type:inline-size}
 @container (max-width:54rem){.ord th:nth-child(3),.ord td:nth-child(3){display:none}}
 
 /* ---------- menús desplegables de la capçalera ---------- */
@@ -248,3 +248,22 @@ a.kpi:hover{border-color:var(--red)}
 #toast.bad{background:var(--red-ink)}#toast.bad svg{color:#fff}
 .nav .n:empty,.nav .n.z{display:none}
 @media (prefers-reduced-motion:reduce){.pop,.md,.ov,.sb i{animation:none!important;transition-duration:.01s!important}.md{transform:none}}
+/* ---------- curves contínues (Apple): cantonades squircle; cercles i píndoles es queden rodons ---------- */
+@supports (corner-shape:squircle){
+*,*::before,*::after{corner-shape:squircle}
+.brand small,
+.nav .n,
+.ib i,
+.avatar,
+.pill,
+.pill::before,
+.chip,
+.chip b,
+.toggle,
+.toggle::after,
+.bar,
+.bar i,
+.dot,
+.num-dot,
+.skey em{corner-shape:round}
+}

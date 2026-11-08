@@ -465,3 +465,20 @@ footer.site .flang button{color:#fff;font-size:1rem}
 @media (max-width:480px){.cartbtn .amt{display:none!important}.logo img{height:2rem!important}.cartbtn{padding-inline:.9rem}}
 @media (max-width:360px){.burger span{display:none}.burger{padding:0 .9rem}.logo img{height:1.8rem!important}.hbar{gap:.4rem}}
 @media (max-width:700px){.arrows{gap:.4rem}.arrows .iconbtn{width:2.8rem;height:2.8rem}.dot{width:2rem}.dots{gap:.2rem}}
+/* ---------- curves contínues (Apple): cantonades squircle; cercles i píndoles es queden rodons ---------- */
+@supports (corner-shape:squircle){
+*,*::before,*::after{corner-shape:squircle}
+.iconbtn:focus-visible,
+.cartbtn .n,
+.iconbtn,
+.follow a,
+.values .pill,
+.list li::before,
+.progress,
+.progress i,
+.fee .coin,
+.stepbar span,
+.stepbar span i,
+.check,
+footer.site .fsoc a{corner-shape:round}
+}
