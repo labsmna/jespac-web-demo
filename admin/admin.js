@@ -72,7 +72,7 @@ PAGES.resum=()=>`
 </div>`;
 
 function ordersTable(rows,selId){
-  return `<table class="tbl"><thead><tr><th>Comanda</th><th>Client</th><th>Botiga</th><th>Entrega</th><th class="num">Total</th><th>Estat</th></tr></thead><tbody>${rows.map(o=>`<tr class="${o[0]===selId?'rowsel':''}"><td><b>${o[0]}</b></td><td>${o[1]}</td><td>${o[2]}</td><td>${o[3]}</td><td class="num"><b>${eur(o[5])}</b></td><td>${pill(o[7])}</td></tr>`).join('')}</tbody></table>`;
+  return `<table class="tbl ord"><thead><tr><th>Comanda</th><th>Client</th><th>Botiga</th><th>Entrega</th><th class="num">Total</th><th>Estat</th></tr></thead><tbody>${rows.map(o=>`<tr data-o="${o[0]}" class="${o[0]===selId?'rowsel':''}"><td><b>${o[0]}</b></td><td>${o[1]}</td><td>${o[2]}</td><td>${o[3]}</td><td class="num"><b>${eur(o[5])}</b></td><td>${pill(o[7])}</td></tr>`).join('')}</tbody></table>`;
 }
 
 PAGES.comandes=()=>{
@@ -173,16 +173,66 @@ PAGES.franges=()=>{
 /* ---------- shell + router ---------- */
 function shell(route,html){
   const cur=route==='producte'?'productes':route;
-  return `<div class="app"><aside class="side"><div class="brand"><img src="../img/jespac/logo_jespac.png" alt="Jespac"><small>Administració</small></div>
-  <h4>Gestió</h4><nav class="nav">${NAV.map(n=>`<a href="#${n[0]}" class="${n[0]===cur?'on':''}">${svg(n[2])}<span>${n[1]}</span>${n[3]?`<i class="n">${n[3]}</i>`:''}</a>`).join('')}</nav>
-  <h4>Configuració</h4><nav class="nav"><a href="#resum">${svg('users')}<span>Usuaris i rols</span></a><a href="#resum">${svg('store')}<span>Botigues</span></a><a href="#resum">${svg('gear')}<span>Ajustos</span></a></nav>
-  <div class="me"><span class="avatar">M</span><div><b>Marta Vidal</b><span>Cap de botiga · Mallorca</span></div></div></aside>
-  <div><header class="top"><div class="search">${svg('search')}<input placeholder="Cerca comandes, productes o clients…"></div><span class="sp"></span><span class="sel">${svg('store')}Totes les botigues ${svg('chev')}</span><span class="ib">${svg('bell')}<i></i></span></header><main>${html}</main></div></div>`;
+  return `<header class="top"><div class="in"><a class="brand" href="#resum"><img src="../img/jespac/logo_jespac.png" alt="Jespac"><small>Administració</small></a>
+  <nav class="nav" aria-label="Administració">${NAV.map(n=>`<a href="#${n[0]}" class="${n[0]===cur?'on':''}"${n[0]===cur?' aria-current="page"':''}>${svg(n[2])}<span>${n[1]}</span>${n[3]?`<i class="n">${n[3]}</i>`:''}</a>`).join('')}</nav>
+  <div class="tools"><span class="sel">${svg('store')}Totes les botigues ${svg('chev')}</span><span class="ib" title="Avisos">${svg('bell')}<i></i></span><span class="avatar" title="Marta Vidal · Cap de botiga">M</span></div></div></header>
+  <main>${html}</main><div id="toast" role="status" aria-live="polite"></div>`;
 }
+const $$=(s,r=document)=>[...r.querySelectorAll(s)];
+function countUp(el){
+  const t=el.textContent,m=t.match(/[\d.,]+/);if(!m)return;
+  const num=parseFloat(m[0].replace(/\./g,'').replace(',','.'));if(!isFinite(num))return;
+  const dec=(m[0].split(',')[1]||'').length,pre=t.slice(0,m.index),post=t.slice(m.index+m[0].length);
+  const t0=performance.now(),D=900;
+  (function f(n){const p=Math.min(1,(n-t0)/D),e=1-Math.pow(1-p,3);
+    el.textContent=pre+(num*e).toLocaleString('ca-ES',{minimumFractionDigits:dec,maximumFractionDigits:dec})+post;
+    if(p<1)requestAnimationFrame(f)})(t0);
+}
+function wrap(sel){$$(sel).forEach(t=>{if(!t.parentElement.classList.contains('tw')){const w=document.createElement('div');w.className='tw';t.replaceWith(w);w.append(t)}})}
+function enhance(){
+  const rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  wrap('main table.tbl');wrap('main .slots');wrap('main .tl');
+  $$('main svg[style*="width:100%"]').forEach(s=>{s.classList.add('chart');$$('rect',s).forEach((r,i)=>r.style.setProperty('--i',i))});
+  $$('.heat div:not(.lb)').forEach((d,i)=>d.style.setProperty('--i',i));
+  $$('.bar i').forEach((b,i)=>b.style.setProperty('--d',(.25+i*.05)+'s'));
+  if(rm)return;
+  const items=$$('main .grid>*, main>.card, main .slide, main .offer').filter((e,i,a)=>a.indexOf(e)===i);
+  items.slice(0,14).forEach((e,i)=>{e.classList.add('rv');e.style.setProperty('--d',(i*70)+'ms')});
+  $$('.kpi .v').forEach(countUp);
+}
+let toastT;
+function toast(msg){const t=$('#toast');t.innerHTML=svg('check2')+msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2600)}
 function render(){
   const r=(location.hash||'#resum').slice(1);const k=PAGES[r]?r:'resum';
   document.title='Jespac · Administració · '+(NAV.find(n=>n[0]===k)?.[1]||'Producte');
   $('#app').innerHTML=shell(k,PAGES[k]());
-  scrollTo(0,0);
+  enhance();scrollTo(0,0);
 }
+/* ---------- interaccions de la mostra ---------- */
+document.addEventListener('click',e=>{
+  const t=e.target;
+  const tog=t.closest('.toggle');if(tog){tog.classList.toggle('on');return}
+  const chip=t.closest('.chip');
+  if(chip){const g=chip.parentElement;
+    if(g.classList.contains('chips')||g.classList.contains('acts'))$$('.chip',g).forEach(c=>c.classList.toggle('on',c===chip));
+    else chip.classList.toggle('on');
+    return}
+  const row=t.closest('tr[data-o]');
+  if(row){
+    $$('tr[data-o]').forEach(r=>r.classList.toggle('rowsel',r===row));
+    const o=ORD.find(x=>x[0]===row.dataset.o),d=$('.drawer');
+    if(o&&d){$('h2',d).textContent=o[0];$('.pill',d).outerHTML=pill(o[7]);
+      const dd=$$('.kv dd',d);dd[0].textContent=o[1]+' · 612 34 56 78';dd[1].textContent=o[3]+' · '+(o[8]==='C'?'a domicili':'recollida');dd[3].textContent=o[2];dd[4].textContent=o[6]+(o[6]==='Efectiu'?' · cobrar en lliurar':' · pagat');
+      const lv={new:1,prep:2,ready:3,ship:4,done:5}[o[7]];$$('.step i',d).forEach((i,k)=>i.classList.toggle('on',k<lv));
+      d.animate([{opacity:.4,transform:'translateY(8px)'},{opacity:1,transform:'none'}],{duration:350,easing:'cubic-bezier(.22,1,.36,1)'})}
+    return}
+  const btn=t.closest('button.btn');
+  if(btn){
+    const tx=btn.textContent.trim(),sv=btn.closest('.save');
+    if(/llesta/i.test(tx)){const d=btn.closest('.drawer');if(d){$$('.step i',d).forEach((i,k)=>i.classList.toggle('on',k<3));$('.pill',d).outerHTML=pill('ready');toast('Comanda '+$('h2',d).textContent+' marcada com a llesta')}return}
+    if(/descarta/i.test(tx)){if(sv)sv.style.display='none';toast('Canvis descartats');return}
+    if(/desa|programa/i.test(tx)){toast(/programa/i.test(tx)?'Oferta programada':'Canvis desats');if(sv)sv.style.display='none';return}
+    toast('Funció de mostra · «'+tx+'»');
+  }
+});
 addEventListener('hashchange',render);render();
