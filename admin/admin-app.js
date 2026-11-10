@@ -444,3 +444,4 @@ document.addEventListener('click',e=>{
     else toast('Funció de mostra · «'+tx+'»')}
 });
 addEventListener('hashchange',render);render();
+document.addEventListener('touchstart',()=>{},{passive:true});

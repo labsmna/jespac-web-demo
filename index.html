@@ -46,9 +46,8 @@ p{margin:0 0 1em;max-width:62ch;overflow-wrap:break-word}
 .shead h2::after,.stext h3::after{content:"";display:block;width:3rem;height:.4rem;margin-top:.7rem;border-radius:.4rem 0 .4rem 0;background:var(--leaf);transform:skewX(-14deg)}
 
 /* ===== buttons: red = main action, leaf green = everything else ===== */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;font-family:var(--ui);font-weight:700;font-size:1.05rem;line-height:1.2;border:0;border-radius:1rem;min-height:3.4rem;padding:.8rem 1.6rem;cursor:pointer;background:var(--red);color:#fff;text-decoration:none;white-space:nowrap;-webkit-tap-highlight-color:transparent;touch-action:manipulation;transition:transform .4s var(--smooth),background .2s,box-shadow .2s}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;font-family:var(--ui);font-weight:700;font-size:1.05rem;line-height:1.2;border:0;border-radius:1rem;min-height:3.4rem;padding:.8rem 1.6rem;cursor:pointer;background:var(--red);color:#fff;text-decoration:none;white-space:nowrap;-webkit-tap-highlight-color:transparent;touch-action:manipulation;transition:transform .4s var(--smooth),background .2s,box-shadow .2s,scale var(--press-t) var(--ease-out)}
 .btn svg{width:1.35em;height:1.35em;flex:none}
-.btn:active{transform:scale(.96);transition-duration:.08s}
 .btn.green,.btn.ghost,.btn.dark,.btn.white,.btn.line{background:var(--leaf);color:#1d2a0a}
 .btn.sm{min-height:2.8rem;padding:.5rem 1.1rem;font-size:.95rem;border-radius:.85rem}
 .btn.block{width:100%}
@@ -101,9 +100,8 @@ nav.main>a.cta::after{display:none}
 .langs button{font:700 .9rem var(--ui);color:inherit;background:transparent;border:0;border-radius:.4rem;padding:.25rem .55rem;min-height:2rem;cursor:pointer;opacity:.65}
 .langs button[aria-pressed="true"]{opacity:1;text-decoration:underline;text-decoration-color:var(--leaf);text-decoration-thickness:3px;text-underline-offset:.35em}
 .langs span{opacity:.35}
-.iconbtn{width:3.2rem;height:3.2rem;border-radius:50%;border:0;background:var(--mist);color:var(--fg);cursor:pointer;display:grid;place-items:center;flex:none;transition:transform .3s var(--smooth)}
+.iconbtn{width:3.2rem;height:3.2rem;border-radius:50%;border:0;background:var(--mist);color:var(--fg);cursor:pointer;display:grid;place-items:center;flex:none;transition:transform .3s var(--smooth),scale var(--press-t) var(--ease-out)}
 .iconbtn svg{width:1.5rem;height:1.5rem}
-.iconbtn:active{transform:scale(.9)}
 .scrim{position:fixed;inset:0;background:rgba(20,20,20,.55);opacity:0;pointer-events:none;transition:opacity .3s;z-index:80}
 .scrim.on{opacity:1;pointer-events:auto}
 html.lock,html.lock body{overflow:hidden}
@@ -141,7 +139,7 @@ html.lock,html.lock body{overflow:hidden}
 
 /* ===== home sections ===== */
 .acts4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.5rem}
-.acttile{display:flex;flex-direction:column;justify-content:space-between;gap:1.2rem;padding:2rem;border-radius:var(--r);min-height:16rem;background:var(--card);border:2px solid var(--line);color:var(--fg);text-decoration:none;transition:transform .45s var(--smooth),border-color .2s}
+.acttile{display:flex;flex-direction:column;justify-content:space-between;gap:1.2rem;padding:2rem;border-radius:var(--r);min-height:16rem;background:var(--card);border:2px solid var(--line);color:var(--fg);text-decoration:none;transition:transform .45s var(--smooth),border-color .2s,scale var(--press-t) var(--ease-out)}
 .acttile svg.big{width:3.6rem;height:3.6rem;color:var(--leaf-ink)}
 .acttile strong{display:block;font-family:var(--display);font-size:1.5rem;line-height:1.1;letter-spacing:-.015em;margin-bottom:.35rem;overflow-wrap:break-word}
 .acttile span.d{display:block;font-family:var(--ui);font-size:.95rem;line-height:1.4;opacity:.85}
@@ -149,7 +147,6 @@ html.lock,html.lock body{overflow:hidden}
 .acttile .go svg{width:1.2rem;height:1.2rem;flex:none}
 .acttile.red{background:var(--red);border-color:var(--red);color:#fff}.acttile.red svg.big{color:#fff}
 .acttile.dark{background:var(--leaf);border-color:var(--leaf);color:#1d2a0a}.acttile.dark svg.big{color:#1d2a0a}
-.acttile:active{transform:scale(.98);transition-duration:.08s}
 @media (hover:hover){.acttile:hover{transform:translateY(-5px);border-color:var(--fg)}}
 @media (max-width:1000px){.acts4{grid-template-columns:repeat(2,minmax(0,1fr))}.acttile{min-height:12.5rem}}
 @media (max-width:520px){.acts4{grid-template-columns:minmax(0,1fr)}.acttile{min-height:auto}}
@@ -169,10 +166,9 @@ html.lock,html.lock body{overflow:hidden}
 @media (max-width:820px){.steps{grid-template-columns:minmax(0,1fr)}}
 .follow{padding:clamp(1.5rem,4vw,2.5rem) 0 0}
 .follow .wrap{display:flex;justify-content:center;gap:1rem}
-.follow a{width:3.6rem;height:3.6rem;border-radius:50%;display:grid;place-items:center;color:#fff;transition:transform .4s var(--smooth)}
+.follow a{width:3.6rem;height:3.6rem;border-radius:50%;display:grid;place-items:center;color:#fff;transition:transform .4s var(--smooth),scale var(--press-t) var(--ease-out)}
 .follow a svg{width:1.8rem;height:1.8rem}
 .follow .wa{background:#25D366}.follow .ig{background:#E1306C}.follow .fb{background:#1877F2}
-.follow a:active{transform:scale(.92);transition-duration:.08s}
 @media (hover:hover){.follow a:hover{transform:translateY(-4px)}}
 
 /* ===== "Qui som" on the landing: stats + big photo stories ===== */
@@ -283,9 +279,8 @@ html.lock,html.lock body{overflow:hidden}
 .price s{font-size:.95rem;font-weight:500;color:var(--mut);margin-left:.4rem}
 .price.off{color:var(--red-ink)}
 .act{margin-top:auto;padding-top:.7rem}
-.addbtn{width:100%;min-height:3.2rem;border-radius:.95rem;border:0;background:var(--red);color:#fff;font:800 1.05rem var(--ui);display:flex;align-items:center;justify-content:center;gap:.5rem;cursor:pointer;touch-action:manipulation;transition:transform .3s var(--smooth)}
+.addbtn{width:100%;min-height:3.2rem;border-radius:.95rem;border:0;background:var(--red);color:#fff;font:800 1.05rem var(--ui);display:flex;align-items:center;justify-content:center;gap:.5rem;cursor:pointer;touch-action:manipulation;transition:transform .3s var(--smooth),scale var(--press-t) var(--ease-out)}
 .addbtn svg{width:1.3em;height:1.3em;flex:none}
-.addbtn:active{transform:scale(.96);transition-duration:.08s}
 .stepper{display:grid;grid-template-columns:3.2rem minmax(0,1fr) 3.2rem;align-items:center;background:var(--mist);border-radius:.95rem;min-height:3.2rem;overflow:hidden;font:800 1.05rem var(--ui)}
 .stepper.in{animation:stepin .5s var(--spring)}
 @keyframes stepin{from{transform:scale(.85);opacity:.4}}
@@ -492,6 +487,12 @@ footer.site .flang button{color:#fff;font-size:1rem}
 .check,
 footer.site .fsoc a{corner-shape:round}
 }
+
+/* ---------- feedback de premuda: tots els botons escalen a .97 en prémer (160 ms, ease-out fort) ---------- */
+:root{--ease-out:cubic-bezier(.23,1,.32,1);--press:.97;--press-t:160ms}
+:where(button,[role=button],[role=switch],[role=checkbox],summary,.btn,.addbtn,.acttile,.iconbtn,.follow a,nav.main>a,.mnav a.l,.pi,.nav a,.dot,.sidetoggle,.sel,.ib,.avatar,.chip,.cb,.lnk,.hplay){-webkit-tap-highlight-color:transparent;touch-action:manipulation;transition:scale var(--press-t) var(--ease-out)}
+:where(button,[role=button],[role=switch],[role=checkbox],summary,.btn,.addbtn,.acttile,.iconbtn,.follow a,nav.main>a,.mnav a.l,.pi,.nav a,.dot,.sidetoggle,.sel,.ib,.avatar,.chip,.cb,.lnk,.hplay):not(:disabled,[aria-disabled=true]):active{scale:var(--press)}
+@media (prefers-reduced-motion:reduce){:where(button,[role=button],[role=switch],[role=checkbox],summary,.btn,.addbtn,.acttile,.iconbtn,.follow a,nav.main>a,.mnav a.l,.pi,.nav a,.dot,.sidetoggle,.sel,.ib,.avatar,.chip,.cb,.lnk,.hplay):not(:disabled,[aria-disabled=true]):active{scale:.99}}
 
 </style>
 </head>
@@ -1344,6 +1345,9 @@ TITLES.mapa=()=>L('Mapa del web','Mapa del sitio');
 /* ---------- BOOT (always the last script) ---------- */
 document.documentElement.lang=lang;
 paintFooter();render(true);refreshCart();booted=true;
+
+/* iOS Safari només aplica :active si hi ha algun listener de touch */
+document.addEventListener('touchstart',()=>{},{passive:true});
 
 </script>
 </body>
