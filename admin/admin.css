@@ -46,12 +46,12 @@ main{max-width:84rem;margin:0 auto;padding:2.2rem 1.5rem 4rem}
 .acts{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}
 
 /* botons: vermell = acció principal, verd = la resta */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;min-height:2.9rem;padding:.5rem 1.25rem;border-radius:.95rem;border:0;font:700 .98rem/1.2 var(--ui);white-space:nowrap;background:var(--red);color:#fff;transition:transform .12s var(--smooth),filter .2s,box-shadow .2s,scale var(--press-t) var(--ease-out)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;min-height:2.9rem;padding:.5rem 1.25rem;border-radius:.95rem;border:0;font:700 .98rem/1.2 var(--ui);white-space:nowrap;background:var(--red);color:#fff;transition:filter .2s var(--ease-out),scale var(--press-t) var(--ease-out)}
 .btn svg{width:1.3em;height:1.3em}
 .btn.green,.btn.line{background:var(--leaf);color:#1d2a0a}
 .btn.sm{min-height:2.4rem;padding:.35rem .9rem;font-size:.88rem;border-radius:.75rem}
 .btn[disabled]{opacity:.45;pointer-events:none}
-@media (hover:hover) and (pointer:fine){.btn:hover{filter:brightness(1.06);box-shadow:0 8px 18px -10px rgba(0,0,0,.5)}}
+@media (hover:hover) and (pointer:fine){.btn:hover{filter:brightness(1.07)}}
 
 .card{background:var(--card);border:1px solid var(--line);border-radius:1.4rem;padding:1.5rem;min-width:0}
 .card>h2,.card>.hd h2{display:flex;align-items:center;gap:.55rem}

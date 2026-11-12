@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ca"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Demo de la premuda</title>
+<style>
+:root{--red:#F7403A;--leaf:#8CC63F;--dark:#262626;--bg:#FAF5EA;--card:#FFFDF8;--line:#E6DFCE;--mist:#F1EADA;
+--ease-out:cubic-bezier(.23,1,.32,1);--press:.97;--press-t:160ms;--ui:"Open Sans",system-ui,"Segoe UI",sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#1f1f1f;font:17px/1.5 var(--ui);padding:2rem 1.2rem}
+.w{max-width:46rem;margin:0 auto}h1{font-size:1.8rem;margin:0 0 .3rem;letter-spacing:-.02em}p{color:#5a564c;margin:.2rem 0 1.4rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:1.4rem;padding:1.4rem;margin-bottom:1rem}
+.row{display:flex;flex-wrap:wrap;gap:.8rem;align-items:center}
+button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation;transition:scale var(--press-t) var(--ease-out),background .2s}
+button:not(:disabled):active,button.sim{scale:var(--press)}
+.btn{min-height:3.4rem;padding:.8rem 1.6rem;border:0;border-radius:1rem;background:var(--red);color:#fff;font-weight:700;font-size:1.05rem}
+.btn.g{background:var(--leaf);color:#1d2a0a}
+.icon{width:3.2rem;height:3.2rem;border:0;border-radius:50%;background:var(--mist);font-size:1.3rem}
+.chip{min-height:2.6rem;padding:0 1rem;border-radius:999px;border:1.5px solid var(--line);background:#fff;font-weight:700}
+.ctrl{display:flex;flex-wrap:wrap;gap:1.2rem;align-items:center;margin-top:.4rem}
+.ctrl label{font-weight:700;font-size:.9rem}.read{font:700 1.4rem/1 var(--ui);font-variant-numeric:tabular-nums}
+.k{display:flex;gap:2rem;flex-wrap:wrap}.k div{font-size:.85rem;color:#5a564c}
+.ghost{display:inline-block;border:2px dashed #cfc7b4;border-radius:1rem;padding:.8rem 1.6rem;font-weight:700;color:#9a937f;font-size:1.05rem}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:1rem;text-align:center}.cmp small{display:block;color:#5a564c;margin-bottom:.6rem}
+.cmp .old{transition:scale .08s linear;scale:1}.cmp .old.sim{scale:.9}
+@media (prefers-reduced-motion:reduce){button:not(:disabled):active,button.sim{scale:.99}}
+</style></head><body><div class="w">
+<h1>Premuda dels botons</h1>
+<p>Prem qualsevol botó (amb el ratolí o el dit): s'encongeix a <b>0,97</b> en 160 ms. Per veure-ho a càmera lenta, mou el control i toca «Simula la premuda».</p>
+
+<div class="card"><div class="row"><button class="btn">Afegir</button><button class="btn g">Veure la botiga</button><button class="icon" aria-label="Tanca">✕</button><button class="chip">Ofertes</button><button class="chip">Local</button></div></div>
+
+<div class="card">
+ <div class="row"><button class="btn g" id="go">Simula la premuda</button><span class="read" id="v">1.000</span></div>
+ <div class="ctrl"><label>Velocitat: <input type="range" id="sl" min="1" max="10" value="1"> <b id="sv">160 ms (real)</b></label></div>
+ <div class="ctrl k"><div>Escala en prémer<br><b>0,97</b></div><div>Durada<br><b id="d">160 ms</b></div><div>Corba<br><b>cubic-bezier(.23, 1, .32, 1)</b></div></div>
+</div>
+
+<div class="card"><small style="color:#5a564c">Abans (cada botó amb un valor diferent) i ara:</small><br><br>
+ <div class="cmp"><div><small>Abans: .9 / .96 / .98…</small><button class="btn old" id="o">Afegir</button></div><div><small>Ara: .97 a tot arreu</small><button class="btn" id="n">Afegir</button></div></div></div>
+</div>
+<script>
+const go=document.getElementById('go'),v=document.getElementById('v'),sl=document.getElementById('sl');
+sl.oninput=()=>{const t=160*sl.value;document.documentElement.style.setProperty('--press-t',t+'ms');sv.textContent=t+' ms'+(sl.value==1?' (real)':' (càmera lenta ×'+sl.value+')');d.textContent=t+' ms'};
+let raf;function track(){cancelAnimationFrame(raf);(function f(){v.textContent=parseFloat(getComputedStyle(go).scale==='none'?1:getComputedStyle(go).scale).toFixed(3);raf=requestAnimationFrame(f)})()}
+function sim(el,hold){el.classList.add('sim');setTimeout(()=>el.classList.remove('sim'),hold)}
+go.addEventListener('click',()=>{const t=160*sl.value;track();document.querySelectorAll('#n,#o').forEach(e=>sim(e,t+500));go.classList.add('sim');setTimeout(()=>go.classList.remove('sim'),t+500)});
+track();
+</script></body></html>

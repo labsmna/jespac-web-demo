@@ -46,14 +46,15 @@ p{margin:0 0 1em;max-width:62ch;overflow-wrap:break-word}
 .shead h2::after,.stext h3::after{content:"";display:block;width:3rem;height:.4rem;margin-top:.7rem;border-radius:.4rem 0 .4rem 0;background:var(--leaf);transform:skewX(-14deg)}
 
 /* ===== buttons: red = main action, leaf green = everything else ===== */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;font-family:var(--ui);font-weight:700;font-size:1.05rem;line-height:1.2;border:0;border-radius:1rem;min-height:3.4rem;padding:.8rem 1.6rem;cursor:pointer;background:var(--red);color:#fff;text-decoration:none;white-space:nowrap;-webkit-tap-highlight-color:transparent;touch-action:manipulation;transition:transform .4s var(--smooth),background .2s,box-shadow .2s,scale var(--press-t) var(--ease-out)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;font-family:var(--ui);font-weight:700;font-size:1.05rem;line-height:1.2;border:0;border-radius:1rem;min-height:3.4rem;padding:.8rem 1.6rem;cursor:pointer;background:var(--red);color:#fff;text-decoration:none;white-space:nowrap;-webkit-tap-highlight-color:transparent;touch-action:manipulation;transition:filter .2s var(--ease-out),background .2s,scale var(--press-t) var(--ease-out)}
 .btn svg{width:1.35em;height:1.35em;flex:none}
 .btn.green,.btn.ghost,.btn.dark,.btn.white,.btn.line{background:var(--leaf);color:#1d2a0a}
 .btn.sm{min-height:2.8rem;padding:.5rem 1.1rem;font-size:.95rem;border-radius:.85rem}
 .btn.block{width:100%}
 .btn[disabled]{opacity:.45;pointer-events:none}
 main .btn,.btn.block,.mnav .btn{white-space:normal;text-align:center}
-@media (hover:hover){.btn:hover{transform:translateY(-2px);box-shadow:0 12px 22px -12px rgba(0,0,0,.45)}.btn.green:hover,.btn.ghost:hover,.btn.dark:hover,.btn.white:hover,.btn.line:hover{background:#9AD14C}}
+/* hover: només un canvi subtil de to (sense ombres ni salts), igual a tots els botons */
+@media (hover:hover) and (pointer:fine){.btn:hover,.addbtn:hover{filter:brightness(1.07)}.iconbtn:hover{filter:brightness(.95)}}
 
 /* ===== header: logo · every page name in one row · cart. Becomes a hamburger ONLY when it does not fit (JS adds .compact) ===== */
 header.site{position:sticky;top:0;z-index:60;background:var(--card);border-bottom:1px solid var(--line)}
@@ -100,7 +101,7 @@ nav.main>a.cta::after{display:none}
 .langs button{font:700 .9rem var(--ui);color:inherit;background:transparent;border:0;border-radius:.4rem;padding:.25rem .55rem;min-height:2rem;cursor:pointer;opacity:.65}
 .langs button[aria-pressed="true"]{opacity:1;text-decoration:underline;text-decoration-color:var(--leaf);text-decoration-thickness:3px;text-underline-offset:.35em}
 .langs span{opacity:.35}
-.iconbtn{width:3.2rem;height:3.2rem;border-radius:50%;border:0;background:var(--mist);color:var(--fg);cursor:pointer;display:grid;place-items:center;flex:none;transition:transform .3s var(--smooth),scale var(--press-t) var(--ease-out)}
+.iconbtn{width:3.2rem;height:3.2rem;border-radius:50%;border:0;background:var(--mist);color:var(--fg);cursor:pointer;display:grid;place-items:center;flex:none;transition:filter .2s var(--ease-out),background .2s,scale var(--press-t) var(--ease-out)}
 .iconbtn svg{width:1.5rem;height:1.5rem}
 .scrim{position:fixed;inset:0;background:rgba(20,20,20,.55);opacity:0;pointer-events:none;transition:opacity .3s;z-index:80}
 .scrim.on{opacity:1;pointer-events:auto}
@@ -279,7 +280,7 @@ html.lock,html.lock body{overflow:hidden}
 .price s{font-size:.95rem;font-weight:500;color:var(--mut);margin-left:.4rem}
 .price.off{color:var(--red-ink)}
 .act{margin-top:auto;padding-top:.7rem}
-.addbtn{width:100%;min-height:3.2rem;border-radius:.95rem;border:0;background:var(--red);color:#fff;font:800 1.05rem var(--ui);display:flex;align-items:center;justify-content:center;gap:.5rem;cursor:pointer;touch-action:manipulation;transition:transform .3s var(--smooth),scale var(--press-t) var(--ease-out)}
+.addbtn{width:100%;min-height:3.2rem;border-radius:.95rem;border:0;background:var(--red);color:#fff;font:800 1.05rem var(--ui);display:flex;align-items:center;justify-content:center;gap:.5rem;cursor:pointer;touch-action:manipulation;transition:filter .2s var(--ease-out),scale var(--press-t) var(--ease-out)}
 .addbtn svg{width:1.3em;height:1.3em;flex:none}
 .stepper{display:grid;grid-template-columns:3.2rem minmax(0,1fr) 3.2rem;align-items:center;background:var(--mist);border-radius:.95rem;min-height:3.2rem;overflow:hidden;font:800 1.05rem var(--ui)}
 .stepper.in{animation:stepin .5s var(--spring)}
@@ -290,7 +291,6 @@ html.lock,html.lock body{overflow:hidden}
 .stepper span{text-align:center;font-variant-numeric:tabular-nums;line-height:1.1}
 .stepper span.tk{animation:tick .3s var(--smooth)}
 @keyframes tick{from{transform:translateY(40%);opacity:0}}
-@media (hover:hover){.addbtn:hover{filter:brightness(.95)}}
 img.f{opacity:0;transition:opacity .25s ease-out}
 img.f.ld{opacity:1}
 
